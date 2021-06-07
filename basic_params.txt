@@ -1,0 +1,20 @@
+# Max. iterations 
+1
+# Image size
+1, 1024
+# Maximum parallax
+1, 1.0
+# Focal length 
+1, 512
+# Noise 
+1, 0.5
+# Distance to center 
+1, 4
+# Use custom t
+0
+# Translation vector
+3, 0, 0, 1
+# Max rotation 
+0.5
+# Pose generation 
+0
