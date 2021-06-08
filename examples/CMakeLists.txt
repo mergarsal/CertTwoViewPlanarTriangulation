@@ -27,10 +27,6 @@ target_link_libraries(example_base
         OptTwoPlanarTriangulation  
         exp_help 
         exp_gen
-        sdpa 
-        lapack 
-        blas 
-        dmumps_seq
 )
         
         
@@ -40,10 +36,6 @@ target_link_libraries(example_comparison
         OptTwoPlanarTriangulation  
         exp_help 
         exp_gen
-        sdpa 
-        lapack 
-        blas 
-        dmumps_seq
 )
       
         

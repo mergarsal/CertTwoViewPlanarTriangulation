@@ -53,11 +53,6 @@ endif()
 ADD_DEFINITIONS ( -DPQXX_HIDE_EXP_OPTIONAL )
 
 
-# for SDP solver
-find_package(SDPA REQUIRED)
-include_directories(${SDPA_INCLUDE_DIRS})
-
-
 
 set(${LIBRARY_TARGET_NAME}_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(${LIBRARY_TARGET_NAME}_SOURCE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -77,8 +72,6 @@ ${${LIBRARY_TARGET_NAME}_INCLUDE_DIRS}/TwoViewPlanarTypes.h
 ${${LIBRARY_TARGET_NAME}_INCLUDE_DIRS}/TwoViewPlanarUtils.h
 # fast solver
 ${${LIBRARY_TARGET_NAME}_INCLUDE_DIRS}/TwoViewPlanarDual.h
-# SDP
-${${LIBRARY_TARGET_NAME}_INCLUDE_DIRS}/TwoViewPlanarSDP.h
 # Certifier
 ${${LIBRARY_TARGET_NAME}_INCLUDE_DIRS}/TwoViewPlanarCert.h
 )
@@ -88,8 +81,6 @@ set(${LIBRARY_TARGET_NAME}_SRCS
 ${${LIBRARY_TARGET_NAME}_SOURCE_DIRS}/TwoViewPlanarUtils.cpp
 # fast solver
 ${${LIBRARY_TARGET_NAME}_SOURCE_DIRS}/TwoViewPlanarDual.cpp
-# SDP
-${${LIBRARY_TARGET_NAME}_SOURCE_DIRS}/TwoViewPlanarSDP.cpp
 # Certifier
 ${${LIBRARY_TARGET_NAME}_SOURCE_DIRS}/TwoViewPlanarCert.cpp
 )

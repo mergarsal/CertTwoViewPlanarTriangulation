@@ -3,15 +3,13 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
-
+#include <fstream>  // for the file
 // triangulation solver
 #include "TwoViewPlanarUtils.h"
 // include types
 #include "TwoViewPlanarTypes.h"
 // include solver
 #include "TwoViewPlanarDual.h"
-// include SDP (Shor)
-#include "TwoViewPlanarSDP.h"
 // include certificate 
 #include "TwoViewPlanarCert.h"
 
@@ -30,6 +28,7 @@ using namespace std;
 using namespace Eigen;
 using namespace TwoViewPlanar;
 using namespace std::chrono;
+
 
 size_t generateRandomIndex(size_t N)
 {
@@ -224,39 +223,11 @@ int main(int argc, char** argv)
                                                 K * str_out.R2, K * str_out.t1, K * str_out.t2, q1, q2);
         
                 double error_plane_dual = errorPointPlane(Xi_dual, n, d_plane);
-                
-                                            
-                
-                // Run SDP (Shor)
-                
-                TwoViewPlanarSDP solver_sdp = TwoViewPlanarSDP(Hp, p1, p2, false); 
-                
-                // solve SDP
-                auto start_time_sdp = high_resolution_clock::now();
-                TwoViewPlanarSDPResult res_sdp = solver_sdp.getResult(false);
-                auto time_init_sdp = duration_cast<nanoseconds>(high_resolution_clock::now() - start_time_sdp);   
-                
-                // extract solution 
-                solver_sdp.getSolutionFromResult(res_sdp, false); 
-                
-                Vector3 q1_sdp, q2_sdp; 
-                q1_sdp = p1; 
-                q2_sdp = p2;
-                q1_sdp.block<2,1>(0,0) += res_sdp.delta_p.block<2,1>(0,0); 
-                q2_sdp.block<2,1>(0,0) += res_sdp.delta_p.block<2,1>(2,0);
-                Vector3 Xi_sdp; 
-                double depth_1_sdp, depth_2_sdp; 
-                double error_svd_sdp = triangulatePoint(Xi_sdp, depth_1_sdp, depth_2_sdp, K * str_out.R1, 
-                                                K * str_out.R2, K * str_out.t1, K * str_out.t2, q1_sdp, q2_sdp);
-        
-                double error_plane_sdp = errorPointPlane(Xi_sdp, n, d_plane);
-                
+
                 Vector4 w_dual; 
                 w_dual << res_dual.delta_p1(0), res_dual.delta_p1(1), res_dual.delta_p2(0), res_dual.delta_p2(1);
                 
-                std::cout << "[SDP] Dual cost = " << res_sdp.d_opt << std::endl; 
-                std::cout << "[SDP] Primal cost = " << res_sdp.f_opt_sol << std::endl;  
-                std::cout << "[SDP] Dual gap = " << res_sdp.d_opt - res_sdp.f_opt_sol << std::endl; 
+           
                 
                 
                 
@@ -347,10 +318,6 @@ int main(int argc, char** argv)
                 std::cout << "[DUAL] Euclidean distance: " << distEuc(point_i, Xi_dual) << std::endl;                 
                 std::cout << "[DUAL] Error for plane: " << error_plane_dual << std::endl;   
                 
-                std::cout << "[SDP] Epipolar constraint: " << q2_sdp.transpose() * F * q1_sdp << std::endl; 
-                std::cout << "[SDP] Error for svd: " << error_svd_sdp << std::endl; 
-                std::cout << "[SDP] Euclidean distance: " << distEuc(point_i, Xi_sdp) << std::endl;                 
-                std::cout << "[SDP] Error for plane: " << error_plane_sdp << std::endl;  
                 
                 
                 std::cout << "[POLY] Epipolar constraint: " << q2_poly.transpose() * F * q1_poly << std::endl; 
@@ -363,14 +330,12 @@ int main(int argc, char** argv)
                 std::cout << "GT point:\n" << point_i << std::endl; 
                 std::cout << "Point SVD:\n" << Xi << std::endl; 
                 std::cout << "Point Dual:\n" << Xi_dual << std::endl; 
-                std::cout << "Point SDP:\n" << Xi_sdp << std::endl; 
                 std::cout << "Point POLY:\n" << Xi_poly << std::endl; 
                 std::cout << "Point ITER:\n" << Xi_iter << std::endl; 
                 
                                
                 
                 std::cout << "[DUAL] Cost: " << res_dual.f_opt << std::endl; 
-                std::cout << "[SDP]  Cost: " << res_sdp.f_opt_sol << std::endl;
                 std::cout << "[POLY] Cost: " << cost_poly << std::endl;
                 
    
@@ -379,7 +344,6 @@ int main(int argc, char** argv)
                 
                 
                 
-                std::cout << "Time SDP:  " << (double) time_init_sdp.count() << std::endl;
                 std::cout << "Time DUAL: " << (double) time_init_dual.count() << std::endl;
                 std::cout << "Time POLY: " << (double) time_init_poly.count() << std::endl;
                 std::cout << "Time ITER: " << (double) time_init_iter.count() << std::endl;

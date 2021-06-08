@@ -42,7 +42,6 @@ add_executable(generic_test ${CMAKE_CURRENT_SOURCE_DIR}/generic_test.cpp)
 target_link_libraries(generic_test  
         OptTwoPlanarTriangulation  
         exp_help_test
-
 )
         
 

@@ -10,8 +10,6 @@
 #include "TwoViewPlanarTypes.h"
 // include solver
 #include "TwoViewPlanarDual.h"
-// include SDP (Shor)
-#include "TwoViewPlanarSDP.h"
 // include certificate 
 #include "TwoViewPlanarCert.h"
 
@@ -186,38 +184,7 @@ int main(int argc, char** argv)
                                                 K * str_out.R2, K * str_out.t1, K * str_out.t2, q1, q2);
         
                 double error_plane_dual = errorPointPlane(Xi_dual, n, d_plane);
-                
-  
-                /* Shor's relaxation */
-                // Run SDP (Shor)
-                TwoViewPlanarSDP solver_sdp = TwoViewPlanarSDP(Hp, p1, p2, false); 
-                
-                // solve SDP
-                auto start_time_sdp = high_resolution_clock::now();
-                TwoViewPlanarSDPResult res_sdp = solver_sdp.getResult(false);
-                auto time_init_sdp = duration_cast<nanoseconds>(high_resolution_clock::now() - start_time_sdp);   
-                
-                // extract solution 
-                solver_sdp.getSolutionFromResult(res_sdp, false); 
-                
-                Vector3 q1_sdp, q2_sdp; 
-                q1_sdp = p1; 
-                q2_sdp = p2;
-                q1_sdp.block<2,1>(0,0) += res_sdp.delta_p.block<2,1>(0,0); 
-                q2_sdp.block<2,1>(0,0) += res_sdp.delta_p.block<2,1>(2,0);
-                Vector3 Xi_sdp; 
-                double depth_1_sdp, depth_2_sdp; 
-                double error_svd_sdp = triangulatePoint(Xi_sdp, depth_1_sdp, depth_2_sdp, K * str_out.R1, 
-                                                K * str_out.R2, K * str_out.t1, K * str_out.t2, q1_sdp, q2_sdp);
-        
-                double error_plane_sdp = errorPointPlane(Xi_sdp, n, d_plane);
-              
-                
-                std::cout << "[SDP] Dual cost = " << res_sdp.d_opt << std::endl; 
-                std::cout << "[SDP] Primal cost = " << res_sdp.f_opt_sol << std::endl;  
-                std::cout << "[SDP] Dual gap = " << res_sdp.d_opt - res_sdp.f_opt_sol << std::endl; 
-                
-                
+
 
                 /* Check certifier */
                 Vector4 sol_w; 
@@ -240,30 +207,20 @@ int main(int argc, char** argv)
                 std::cout << "[DUAL] Euclidean distance: " << distEuc(point_i, Xi_dual) << std::endl;                 
                 std::cout << "[DUAL] Error for plane: " << error_plane_dual << std::endl;   
                 
-                
-                std::cout << "[SDP] Epipolar constraint: " << q2_sdp.transpose() * F * q1_sdp << std::endl; 
-                std::cout << "[SDP] Error for svd: " << error_svd_sdp << std::endl; 
-                std::cout << "[SDP] Euclidean distance: " << distEuc(point_i, Xi_sdp) << std::endl;                 
-                std::cout << "[SDP] Error for plane: " << error_plane_sdp << std::endl;  
+           
                 
                 std::cout << "GT point:\n" << point_i << std::endl; 
                 std::cout << "Point SVD:\n" << Xi << std::endl; 
                 std::cout << "Point Dual:\n" << Xi_dual << std::endl; 
-                std::cout << "Point SDP:\n" << Xi_sdp << std::endl; 
                 
                 
-                std::cout << "Multipliers SDP:\n" << res_sdp.dual_point << std::endl; 
                 std::cout << "Multipliers Dual:\n" << res_dual.lag_mult_1 << std::endl << res_dual.lag_mult_2 << std::endl; 
                 std::cout << "Multipliers Cert:\n" << res_cert.mult << std::endl; 
                 
-                
-                std::cout << "Primal cost from SDP = " << res_sdp.f_opt << std::endl; 
-                std::cout << "Dual cost from SDP   = " << res_sdp.d_opt << std::endl; 
                 std::cout << "Dual cost from dual  = " << res_dual.rho << std::endl;  
                 std::cout << "Dual cost from cert  = " << res_cert.d_mult << std::endl;   
                 
-                
-                std::cout << "Time SDP: " << (double) time_init_sdp.count() << std::endl;
+     
                 std::cout << "Time DUAL: " << (double) time_init_dual.count() << std::endl;
                 
                    
