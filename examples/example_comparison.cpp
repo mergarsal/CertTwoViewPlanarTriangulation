@@ -279,7 +279,7 @@ int main(int argc, char** argv)
                 TwoViewPlanarCertRes res_cert = certifySolution(Hp, p1, p2, sol_w, threshold_min);
                 
                 /* Check sufficient condition */
-                TwoViewPlanarSuffRes res_suff = certifySuffSolution(Hp, p1, p2, sol_w);
+                TwoViewPlanarSuffRes res_suff = certifySuffSolution(Hp, p1, p2, sol_w, threshold_min);
                 
                 
                 std::cout << "Multipliers cert:\n" << res_cert.mult << std::endl; 

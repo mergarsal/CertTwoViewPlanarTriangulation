@@ -41,6 +41,7 @@ namespace TwoViewPlanar
 
         /** Sufficcient condition **/
         TwoViewPlanarSuffRes certifySuffSolution(const Matrix3& H, const Vector3 & p1, 
-                                                 const Vector3 & p2, const Vector4 & sol_w);
+                                                 const Vector3 & p2, const Vector4 & sol_w,
+                                                 const double threshold_min);
 
 }  // end of namespace

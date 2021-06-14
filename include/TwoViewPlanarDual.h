@@ -27,10 +27,11 @@ namespace TwoViewPlanar
                                 s_ = 1; 
                                 change_A1_ = 1.0; 
                                 
-                                max_iter_ = 30;
+                                max_iter_ = 10;
                                 
                                 tol_ = 5e-16;   // for constr = 0
                                 tol_d_ = 5e-16; // for diff lag mult
+                                tol_e_ = 1e-05; 
                 
                                 time_dec_H_ = 0.0; 
                                 };
@@ -51,12 +52,13 @@ namespace TwoViewPlanar
                                 U_ = res.U;
                                 UU_ = res.UU;  
                                 
-                                max_iter_ = 30;
+                                max_iter_ = 10;
                                 
                                 change_A1_ = res.change_A1; 
                                 
                                 tol_ = 5e-16;   // for constr = 0
                                 tol_d_ = 5e-16; // for diff lag mult
+                                tol_e_ = 1e-05; 
                 
                                 time_dec_H_ = res.time_dec;
                         }
@@ -90,6 +92,8 @@ namespace TwoViewPlanar
                         double tol_;   
         
                         double tol_d_; 
+                        
+                        double tol_e_; 
                         
                         double time_dec_H_; 
                                                 

@@ -451,7 +451,7 @@ namespace TwoViewPlanar
                                
                 // check optimality for dual               
                 
-                bool is_opt = (1 / (a2) >= l1*l1 + l2*l2) ? true : false;
+                bool is_opt = ((1 - tol_e_) * (1 - tol_e_) / (a2) >= l1*l1 + l2*l2) ? true : false;
                
                 
                                  

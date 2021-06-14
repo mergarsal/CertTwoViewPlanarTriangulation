@@ -77,13 +77,13 @@ TwoViewPlanarCertRes certifySolution(const Matrix3& H, const Vector3 & p1, const
                 res.mult = mult; 
                 // res.Hessian = Hess; 
                 res.As = As; 
-                res.is_opt = (min_eig > threshold_min) ? true : false; 
+                res.is_opt = (min_eig > (1-threshold_min)) ? true : false; 
                 
                 return res;
                           
 }
 
-TwoViewPlanarSuffRes certifySuffSolution(const Matrix3& H, const Vector3 & p1, const Vector3 & p2, const Vector4 & sol_w)
+TwoViewPlanarSuffRes certifySuffSolution(const Matrix3& H, const Vector3 & p1, const Vector3 & p2, const Vector4 & sol_w, const double threshold_min)
 {
         double s = std::sqrt(H(2, 0)* H(2,0) + H(2, 1) * H(2, 1)); 
         
@@ -119,7 +119,7 @@ TwoViewPlanarSuffRes certifySuffSolution(const Matrix3& H, const Vector3 & p1, c
                 
                 
                 
-                bool is_opt = (std::sqrt(sol_w.dot(sol_w)) < rat_bs ) ? true: false;
+                bool is_opt = (std::sqrt(sol_w.dot(sol_w)) < rat_bs * (1-threshold_min)) ? true: false;
         
                 TwoViewPlanarSuffRes res = TwoViewPlanarSuffRes(); 
                 res.s = s; 

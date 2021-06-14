@@ -459,7 +459,7 @@ int main(int argc, char** argv)
                                                         
                                                         /* Check sufficient condition */
                                                         auto start_time_suff = high_resolution_clock::now();                                                        
-                                                        TwoViewPlanarSuffRes res_suff = certifySuffSolution(Hp, p1, p2, sol_w);
+                                                        TwoViewPlanarSuffRes res_suff = certifySuffSolution(Hp, p1, p2, sol_w, threshold_min);
                                                         auto time_init_suff = duration_cast<nanoseconds>(high_resolution_clock::now() - start_time_suff);  
                 
                 
