@@ -1,6 +1,6 @@
 # Certifiable two-view planar triangulation
 
-*Paper in revision*
+**Manuscript submitted**
 
 This repo contains the code for the solvers 
 and optimality certificates 
@@ -82,11 +82,7 @@ in *basic_params.txt*.
 The test reads the parameters in this file 
 and perform the experiment. 
 
-Note: 
-As we save a lot of data, 
-we highly recommend to 
-create a folder 
-for the experiments. 
+
 
 
 
