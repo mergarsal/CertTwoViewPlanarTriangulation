@@ -1,5 +1,6 @@
 # Certifiable two-view planar triangulation
 
+*Paper in revision*
 
 This repo contains the code for the solvers 
 and optimality certificates 
@@ -12,8 +13,8 @@ explained in [this paper](NONE) [1].
 
 
 **Authors:** 
-[Mercedes Garcia-Salguero](http://mapir.uma.es/mapirwebsite/index.php/people/290), 
-[Javier Gonzalez-Jimenez](http://mapir.isa.uma.es/mapirwebsite/index.php/people/95-javier-gonzalez-jimenez)
+[Mercedes Garcia-Salguero](https://mapir.isa.uma.es/mapirwebsite/?p=1718), 
+[Javier Gonzalez-Jimenez](https://mapir.isa.uma.es/mapirwebsite/?p=1536)
 
 
 **License:** [GPLv3](NONE)
