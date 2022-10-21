@@ -5,7 +5,7 @@
 This repo contains the code for the solvers 
 and optimality certificates 
 for the two-view planar triangulation problem 
-explained in [this paper](NONE) [1]. 
+explained in [this paper](https://doi.org/10.1016/j.cviu.2022.103570). 
 
 
 
@@ -17,13 +17,23 @@ explained in [this paper](NONE) [1].
 [Javier Gonzalez-Jimenez](https://mapir.isa.uma.es/mapirwebsite/?p=1536)
 
 
-**License:** [GPLv3](NONE)
+**License:** [GPLv3](https://github.com/mergarsal/CertTwoViewPlanarTriangulation/blob/main/LICENSE)
 
 
 If you use this code for your research, please cite:
 
 ```
-NONE
+@article{GARCIASALGUERO2022103570,
+title = {Certifiable algorithms for the two-view planar triangulation problem},
+journal = {Computer Vision and Image Understanding},
+pages = {103570},
+year = {2022},
+issn = {1077-3142},
+doi = {https://doi.org/10.1016/j.cviu.2022.103570},
+url = {https://www.sciencedirect.com/science/article/pii/S1077314222001485},
+author = {Mercedes Garcia-Salguero and Javier Gonzalez-Jimenez},
+keywords = {Two-view planar triangulation, Primal–dual solver, Optimality certificate, Sufficient optimality condition},
+}
 ```
 
 
